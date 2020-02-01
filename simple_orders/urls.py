@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^app/', include('app.urls')),
     url(r'^$', views.index, name='index'),
+    url(r'^orders', views.orders, name='orders'),
     url(r'^special/', views.special, name='special'),
     url(r'^logout/$', views.user_logout, name='logout'),
 ]

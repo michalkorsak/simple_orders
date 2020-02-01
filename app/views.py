@@ -1,18 +1,27 @@
 from django.shortcuts import render
+from django.views import View
+
 from app.forms import UserForm, UserProfileInfoForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+from app.models import IngredientModel
+
 
 def index(request):
-    return render(request, 'index.html')\
+    return render(request, 'index.html')
+
+
+def orders(request):
+    ingredients = IngredientModel.objects.all()
+    return render(request, 'orders.html', {'ingredients': ingredients})
 
 
 @login_required
 def special(request):
-    return HttpResponse("You are logged in !")\
+    return HttpResponse("You are logged in !")
 
 
 @login_required
@@ -38,14 +47,14 @@ def register(request):
             profile.save()
             registered = True
         else:
-            print(user_form.errors,profile_form.errors)
+            print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
         profile_form = UserProfileInfoForm()
-    return render(request,'registration/registration.html',
-                          {'user_form': user_form,
-                           'profile_form': profile_form,
-                           'registered': registered})
+    return render(request, 'registration/registration.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form,
+                   'registered': registered})
 
 
 def user_login(request):
@@ -65,4 +74,3 @@ def user_login(request):
             return HttpResponse("Invalid login details given")
     else:
         return render(request, 'registration/login.html', {})
-
