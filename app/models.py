@@ -13,9 +13,22 @@ class UserProfileInfo(models.Model):
         return self.user.username
 
 
+class CategoryModel(models.Model):
+    category_name = models.CharField(max_length=64)
+
+    class Meta:
+        indexes = [models.Index(fields=['category_name'])]
+        ordering = ['category_name']
+        verbose_name = 'category_model'
+        verbose_name_plural = 'category_models'
+
+    def __str__(self):
+        return self.category_name
+
+
 class IngredientModel(models.Model):
     ingredient_name = models.CharField(max_length=64)
-    ingredient_type = models.CharField(max_length=64)
+    category = models.ForeignKey(CategoryModel, max_length=64, on_delete=CASCADE)
 
     class Meta:
         indexes = [models.Index(fields=['ingredient_name'])]

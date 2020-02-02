@@ -1,8 +1,8 @@
 {% extends "base/base.html" %}
   {% block content %}
-{% for ingredient in ingredients %}
+{% for type in types %}
     <div>
-        <h2><a href="">{{ ingredient.ingredient_name }}</a></h2>
+        <h2><a href="">{{ type }}</a></h2>
     </div>
 {% endfor %}
 
