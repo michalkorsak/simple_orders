@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from app.models import IngredientModel
+from app.models import IngredientModel, CategoryModel
 
 
 def index(request):
@@ -15,8 +15,10 @@ def index(request):
 
 
 def orders(request):
+    categories = CategoryModel.objects.all()
     ingredients = IngredientModel.objects.all()
-    return render(request, 'orders.html', {'ingredients': ingredients})
+    return render(request, 'orders.html', {'categories': categories,
+                                           'ingredients': ingredients})
 
 
 @login_required

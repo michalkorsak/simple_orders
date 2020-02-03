@@ -1,9 +1,19 @@
 {% extends "base/base.html" %}
+
+
   {% block content %}
-{% for type in types %}
-    <div>
-        <h2><a href="">{{ type }}</a></h2>
-    </div>
+{% for category in categories %}
+
+
+<div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn">{{category.category_name}}</button>
+  {% for ingredient in category.ingredientmodel_set.all %}
+	<div id="myDropdown" class="dropdown-content">
+    <div>{{ingredient.ingredient_name}}</div>
+  </div>
+</div>
+
+    {% endfor %}
 {% endfor %}
 
 {% endblock %}
